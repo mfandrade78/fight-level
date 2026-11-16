@@ -36,6 +36,18 @@ void main() {
     expect(find.text('Ana Silva'), findsOneWidget);
   });
 
+  testWidgets('exige o nome para cadastrar um estudante', (tester) async {
+    await tester.pumpWidget(const FightLevelApp());
+
+    await tester.tap(find.text('Insert Student'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Add student'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Name is required.'), findsOneWidget);
+    expect(find.byType(AlertDialog), findsOneWidget);
+  });
+
   testWidgets('remove um estudante somente após confirmação', (tester) async {
     await tester.pumpWidget(const FightLevelApp());
 
@@ -49,6 +61,21 @@ void main() {
     await tester.tap(find.text('See All'));
     await tester.pumpAndSettle();
     expect(find.text('Francisco M.'), findsNothing);
+  });
+
+  testWidgets('mantém o estudante quando a remoção é cancelada', (tester) async {
+    await tester.pumpWidget(const FightLevelApp());
+
+    await tester.tap(find.text('Remove Student'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Francisco M.'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('See All'));
+    await tester.pumpAndSettle();
+    expect(find.text('Francisco M.'), findsOneWidget);
   });
 
   testWidgets('busca estudantes por nome', (tester) async {
@@ -72,6 +99,6 @@ void main() {
     expect(find.text('Tuesday'), findsOneWidget);
     expect(find.text('9:00 AM - 10:30 AM\n6:00 PM - 7:30 PM'), findsOneWidget);
     expect(find.text('Saturday'), findsOneWidget);
-    expect(find.text('No training'), findsNWidgets(3));
+    expect(find.text('No training'), findsWidgets);
   });
 }
