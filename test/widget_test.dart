@@ -33,6 +33,11 @@ void main() {
 
     await tester.tap(find.text('See All'));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.text('Ana Silva'),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
     expect(find.text('Ana Silva'), findsOneWidget);
   });
 
