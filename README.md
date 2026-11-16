@@ -1,17 +1,26 @@
-# fight_level
+# Fight Level
 
-A new Flutter project.
+Aplicativo Flutter para consultar estudantes, acompanhar progresso e ver os
+horários semanais de treino.
 
-## Getting Started
+## Funcionalidades
 
-This project is a starting point for a Flutter application.
+- Cadastro e remoção de estudantes durante a sessão do aplicativo.
+- Busca por nome, experiência ou graduação.
+- Filtros de estudantes por ordem alfabética e disponibilidade de mídia.
+- Agenda semanal de treinos.
+- Atalhos para o perfil da equipe no Instagram, notificações, conquistas e ajuda.
 
-A few resources to get you started if this is your first Flutter project:
+Os estudantes adicionados ou removidos são mantidos em memória e voltam à lista
+inicial quando o aplicativo é reiniciado.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## BDD e testes
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Os cenários de comportamento estão em
+[`test/features/fight_level.feature`](test/features/fight_level.feature).
+
+Para executar os testes de interface:
+
+```sh
+flutter test
+```
