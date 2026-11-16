@@ -86,12 +86,15 @@ class FightBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget item(IconData icon, VoidCallback? onTap) => Expanded(
+    Widget item(String label, IconData icon, VoidCallback? onTap) => Expanded(
           child: InkResponse(
             onTap: onTap,
-            child: SizedBox(
-              height: 64,
-              child: Icon(icon, color: Colors.white, size: 32),
+            child: Tooltip(
+              message: label,
+              child: SizedBox(
+                height: 64,
+                child: Icon(icon, color: Colors.white, size: 32),
+              ),
             ),
           ),
         );
@@ -102,10 +105,10 @@ class FightBottomNav extends StatelessWidget {
         top: false,
         child: Row(
           children: [
-            item(Icons.home_rounded, onHome),
-            item(Icons.fact_check, onProgress),
-            item(Icons.star_rounded, onAchievements),
-            item(Icons.support_agent, onSupport),
+            item('Home', Icons.home_rounded, onHome),
+            item('Progress', Icons.fact_check, onProgress),
+            item('Achievements', Icons.star_rounded, onAchievements),
+            item('Help and support', Icons.support_agent, onSupport),
           ],
         ),
       ),
@@ -149,7 +152,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _launchExternal(Uri uri, String failureMessage) async {
     try {
-      final launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+      final launched =
+          await launchUrl(uri, mode: LaunchMode.externalApplication);
       if (!launched && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(failureMessage)),
@@ -183,7 +187,9 @@ class _HomePageState extends State<HomePage> {
       (existing) => existing.name.toLowerCase() == student.name.toLowerCase(),
     )) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('A student with this name already exists.')),
+        const SnackBar(
+          content: Text('A student with this name already exists.'),
+        ),
       );
       return;
     }
@@ -386,7 +392,9 @@ class _HomePageState extends State<HomePage> {
             Icons.groups,
             'Community',
             () => _launchExternal(
-              Uri.parse('https://www.instagram.com/ctjuniorsilva?srtk=MXB6dDRkdGRkd2R5dw=='),
+              Uri.parse(
+                'https://www.instagram.com/ctjuniorsilva?srtk=MXB6dDRkdGRkd2R5dw==',
+              ),
               'Could not open the Instagram profile.',
             ),
           ),
@@ -448,7 +456,7 @@ class _HomePageState extends State<HomePage> {
               onTap: _insertStudent,
             ),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Expanded(
             child: _ActionCard(
               label: 'Remove Student',
@@ -725,7 +733,8 @@ class _StudentsLevelPageState extends State<StudentsLevelPage> {
               ),
             ),
             FightBottomNav(
-              onHome: () => Navigator.of(context).popUntil((route) => route.isFirst),
+              onHome: () =>
+                  Navigator.of(context).popUntil((route) => route.isFirst),
               onProgress: () => _scrollController.animateTo(
                 0,
                 duration: const Duration(milliseconds: 250),
