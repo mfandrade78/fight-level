@@ -375,7 +375,7 @@ class _HomePageState extends State<HomePage> {
     Widget divider() => Container(
           width: 1.5,
           height: 50,
-          color: AppColors.red.withValues(alpha: 0.8),
+          color: AppColors.red.withOpacity(0.8),
         );
 
     return Padding(
